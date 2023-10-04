@@ -61,11 +61,11 @@ const http = require('http');
                 tunnelport = chunk.toString();
             });
             res.on('end', () => {
-                console.log(`接続情報:\nIP: xy.f5.si\nPORT: ${parseInt(tunnelport) + 2000}\nこの接続情報は最大72時間有効です。`);
+                console.log(`接続情報:\nIP: xy.f5.si\nPORT: ${parseInt(tunnelport)}\nこの接続情報は最大72時間有効です。`);
                 const server = require('./server/server');
                 server({
                     proxyPort: port,
-                    tunnelPort: tunnelport
+                    tunnelPort: parseInt(tunnelport) + 2000
                 });
             });
         });
@@ -76,14 +76,14 @@ const http = require('http');
                 tunnelport = chunk.toString();
             });
             res.on('end', () => {
-                console.log(`接続情報:\nIP: xy.f5.si\nPORT: ${parseInt(tunnelport) + 2000}\nこの接続情報は最大72時間有効です。`);
+                console.log(`接続情報:\nIP: xy.f5.si\nPORT: ${parseInt(tunnelport)}\nこの接続情報は最大72時間有効です。`);
 
                 const helper = require('./udp/helper');
 
                 const udp = require('dgram');
 
                 const tunnel_addr = 'xy.f5.si',
-                    tunnel_port = parseInt(tunnelport),
+                    tunnel_port = parseInt(tunnelport) + 2000,
                     local_addr = '127.0.0.1',
                     local_port = parseInt(port),
                     client_tunnel = udp.createSocket('udp4'),

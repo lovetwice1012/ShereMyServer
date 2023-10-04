@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 app.get('/allocate_tcp', (req, res) => {
     const port = can_allocation_port_tcp.shift();
     allocated_port_tcp.push(port);
+    console.log(`allocate tcp port ${port}`)
     exec(`node server.js 1 ${port} ${port+2000}`, (err, stdout, stderr) => {
         if (err) {
             console.log(err);
@@ -37,6 +38,7 @@ app.get('/allocate_tcp', (req, res) => {
 app.get('/allocate_udp', (req, res) => {
     const port = can_allocation_port_udp.shift();
     allocated_port_udp.push(port);
+    console.log(`allocate udp port ${port}`)
     exec(`node server.js 2 ${port} ${port+2000}`, (err, stdout, stderr) => {
         if (err) {
             console.log(err);
