@@ -121,7 +121,7 @@ const http = require('http');
                     clients[client_rinfo_str].send(msg.slice(6), 0, msg.length - 6, local_port, local_addr, (err) => { if (err) throw err; });
                     //console.log(`tunnel client got: ${msg} from ${helper.rinfo2buffer(rinfo).toString('hex')}`);
                 });
-                client_tunnel.send(new Buffer(1), 0, 1, tunnel_port, tunnel_addr, (err) => { if (err) throw err; }); // say hello
+                client_tunnel.send(new Buffer.alloc(1), 0, 1, tunnel_port, tunnel_addr, (err) => { if (err) throw err; }); // say hello
             });
         });
     }

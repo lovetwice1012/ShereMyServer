@@ -1,6 +1,6 @@
 module.exports.rinfo2buffer = (rinfo) => {
     let ip = rinfo.address.split('.'),
-        buf = new Buffer(6);
+        buf = new Buffer.alloc(6);
     buf.writeUInt8(parseInt(ip[0]), 0);
     buf.writeUInt8(parseInt(ip[1]), 1);
     buf.writeUInt8(parseInt(ip[2]), 2);
