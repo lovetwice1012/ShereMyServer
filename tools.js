@@ -81,7 +81,7 @@ const readline = require('readline/promises');
         var portcheck = false;
         var port;
         while (!portcheck) {
-            port = await readInterface.question("ユーザーに接続してほしいポートを入力してください:");
+            port = await readInterface.question("公開したいポートを入力してください:");
             //check port is number or not
             if (isNaN(port)) {
                 console.log("ポート番号は数字で入力してください。");

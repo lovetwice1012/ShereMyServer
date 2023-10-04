@@ -18,7 +18,6 @@ const _createTunnel = (remoteServer, localServer, code) => createTunnel => {
 
     remote.setKeepAlive(true);
     remote.once('connect', function () {
-        console.log('connected to remote');
         if (code != undefined) {
             remote.write(code);
         }
