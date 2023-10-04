@@ -35,6 +35,7 @@ const { exit } = require('process');
         });
     }
     async function mode2() {
+        const helper = require('./udp/helper');
         const udp = require('dgram');
         const port_listen = parseInt(incomingport),
             port_tunnel = parseInt(tunnelport),
