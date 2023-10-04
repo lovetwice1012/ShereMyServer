@@ -1,11 +1,21 @@
 module.exports.rinfo2buffer = (rinfo) => {
     let ip = rinfo.address.split('.'),
-        buf = new Buffer.alloc(6);
-    buf.writeUInt8(parseInt(ip[0]), 0);
-    buf.writeUInt8(parseInt(ip[1]), 1);
-    buf.writeUInt8(parseInt(ip[2]), 2);
-    buf.writeUInt8(parseInt(ip[3]), 3);
-    buf.writeUInt16BE(parseInt(rinfo.port), 4);
+        buf = Buffer.alloc(6);
+    if (ip.length !== 4) {
+        throw new Error('Invalid IP address format');
+    }
+    for (let i = 0; i < 4; i++) {
+        const octet = parseInt(ip[i]);
+        if (isNaN(octet) || octet < 0 || octet > 255) {
+            throw new Error('Invalid IP address component');
+        }
+        buf.writeUInt8(octet, i);
+    }
+    const port = parseInt(rinfo.port);
+    if (isNaN(port) || port < 0 || port > 65535) {
+        throw new Error('Invalid port number');
+    }
+    buf.writeUInt16BE(port, 4);
     return buf; 
 }
 

@@ -102,7 +102,7 @@ const http = require('http');
                 });
                 client_tunnel.on('message', (msg, rinfo) => {
                     let client_rinfo = helper.buffer2rinfo(msg),
-                        client_rinfo_buf = msg.slice(0, 6),
+                        client_rinfo_buf = msg.subarray(0, 6),
                         client_rinfo_str = `${client_rinfo.address}:${client_rinfo.port}`;
                     if (!(client_rinfo_str in clients)) {
                         console.log(`new client connected from ${client_rinfo_str}`)
@@ -118,10 +118,10 @@ const http = require('http');
                             //console.log(`client got: ${msg} from ${helper.rinfo2buffer(rinfo).toString('hex')}`);
                         });
                     }
-                    clients[client_rinfo_str].send(msg.slice(6), 0, msg.length - 6, local_port, local_addr, (err) => { if (err) throw err; });
+                    clients[client_rinfo_str].send(msg.subarray(6), 0, msg.length - 6, local_port, local_addr, (err) => { if (err) throw err; });
                     //console.log(`tunnel client got: ${msg} from ${helper.rinfo2buffer(rinfo).toString('hex')}`);
                 });
-                client_tunnel.send(new Buffer.alloc(1), 0, 1, tunnel_port, tunnel_addr, (err) => { if (err) throw err; }); // say hello
+                client_tunnel.send(Buffer.alloc(1), 0, 1, tunnel_port, tunnel_addr, (err) => { if (err) throw err; }); // say hello
             });
         });
     }
